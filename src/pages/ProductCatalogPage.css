@@ -1,0 +1,56 @@
+.catalog-container {
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 16px;
+  color: #222;
+}
+
+.search-input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.filters,
+.sorts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.filter-button,
+.sort-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.filter-button.active {
+  background-color: #aaaaaa;
+  color: #fff;
+}
+
+.sort-button.active {
+  background-color: #ffd3da;
+  font-weight: 600;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
