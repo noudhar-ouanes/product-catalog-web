@@ -13,13 +13,17 @@ export const ProductCard: React.FC<Props> = ({ product, onFavoriteToggle }) => {
       <img src={product.image} alt={product.title} className="image" />
       <div className="details">
         <h3>{product.title}</h3>
-        <p>{product.description}</p>
-        <p>Category: {product.category}</p>
+        <p className="desc">{product.description}</p>
+        <p className="category">Category: {product.category}</p>
         <strong>${product.price}</strong>
       </div>
-      <button onClick={() => onFavoriteToggle(product.id)}>
+      <button
+        className={`favorite-btn ${product.favorite ? 'favorited' : ''}`}
+        onClick={() => onFavoriteToggle(product.id)}
+      >
         {product.favorite ? '❤️' : '🤍'}
       </button>
     </div>
   );
 };
+

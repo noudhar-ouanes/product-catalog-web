@@ -74,7 +74,7 @@ export default function ProductCatalogPage() {
 
   return (
     <div className="catalog-container">
-      <h1>🛍️ Product Catalog</h1>
+      <h1>Product Catalog</h1>
 
       <input
         className="search-input"
