@@ -30,7 +30,7 @@ A responsive React application to browse and filter a list of products. It inclu
 
 ---
 
-## 🛠️ Setup & Installation
+## Setup & Installation
 
 ### 1. Clone the repository
 
@@ -50,10 +50,6 @@ npm run start
 yarn start
 
 ### 4. Screenshots
-
-#### Dashboard screen 
-
-![Product Catalog dashboard](./src/asstes/images/screenshots/dashboardScreen.png)
 
 #### Responsive screen
 
