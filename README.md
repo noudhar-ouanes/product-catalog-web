@@ -1,4 +1,4 @@
-# 🛍️ Product Catalog App
+# Product Catalog App
 
 A responsive React application to browse and filter a list of products. It includes features like:
 
@@ -26,6 +26,7 @@ A responsive React application to browse and filter a list of products. It inclu
 - **TypeScript**
 - **CSS Modules**
 - **FakeStore API**
+- **Jest**
 
 ---
 
@@ -33,55 +34,41 @@ A responsive React application to browse and filter a list of products. It inclu
 
 ### 1. Clone the repository
 
-git clone https://github.com/your-username/product-catalog-app.git
+git clone https://github.com/noudhar-ouanes/product-catalog-web.git
 cd product-catalog-app
 
 ### 2. Install dependencies
 
 npm install
-# or
+####  or
 yarn install
 
 ### 3. Run the app
 
-npm run dev
-# or
-yarn dev
+npm run start
+####  or
+yarn start
 
-### 4. Project Structure
+### 4. Screenshots
 
-src/
-├── assets/                         # Images 
-├── components/
-│   ├── ProductCatalogPage.css  # Reusable product card
-│   └── ProductCard.css         # product card styles
-├── constants/
-│   ├── Constants.ts            
-│   └── Types.ts                
-├── pages/
-│   └── ProductCatalogPage.tsx  # Main page of the catalog
-│   └── ProductCatalogPage.css  # dashboard style
-
-### 5. Screenshots
-
-### Dashboard 
+#### Dashboard screen 
 
 ![Product Catalog dashboard](./src/asstes/images/screenshots/dashboardScreen.png)
 
-### Responsive 
+#### Responsive screen
 
 ![Responsive Product Catalog dashboard](./src/assets/images/screenshots/responsiveScreen.png)
 
-### Filter & Sort
+#### Filter & Sort screen
 
 ![Filtered and Sorted Product Catalog dashboard](./src//assets/images/screenshots/filteredAndSortedScreen.png)
 
-### Search 
+#### Search screen
 
 ![Search Product Catalog dashboard](./src/assets/images/screenshots/searchDashboardScreen.png)
 
 
-### 6. Author
+### 5. Author
 
 Noudhar Ouanes
 LinkedIn : https://www.linkedin.com/in/noudhar-ouanes-464840194/
