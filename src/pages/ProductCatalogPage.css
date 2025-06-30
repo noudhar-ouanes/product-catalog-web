@@ -99,7 +99,8 @@ h1 {
   background-color: #eee;
   border-color: #ccc;
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.12);
-}.product-list {
+}
+.product-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
@@ -114,7 +115,7 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  aspect-ratio: 1 / 1; /* Square card */
+  aspect-ratio: 1 / 1; 
 }
 
 .product-card:hover {
@@ -149,4 +150,36 @@ h1 {
     font-size: 12px;
     padding: 4px 10px;
   }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(.active-page):not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.pagination .active-page {
+  background-color: #7c65f2;
+  color: white;
+  font-weight: bold;
+  border-color: #7c65f2;
 }

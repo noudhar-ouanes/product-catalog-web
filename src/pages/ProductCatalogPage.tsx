@@ -1,9 +1,9 @@
-// src/pages/ProductCatalogPage.tsx
 import { useEffect, useMemo, useState } from 'react';
 import { Product, ProductList } from '../constants/Types';
-import { sortOptions } from '../constants/Constants';
+import { PAGE_SIZE, sortOptions } from '../constants/Constants';
 import { ProductCard } from '../components/ProductCard';
 import './ProductCatalogPage.css';
+
 
 export default function ProductCatalogPage() {
   const [products, setProducts] = useState<ProductList>([]);
@@ -13,6 +13,7 @@ export default function ProductCatalogPage() {
   const [sortOption, setSortOption] = useState('Default');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -72,6 +73,17 @@ export default function ProductCatalogPage() {
     return result;
   }, [products, searchQuery, activeCategory, sortOption]);
 
+  // pagination
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginatedProducts = filtered.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE
+  );
+
+  useEffect(() => {
+    setCurrentPage(1); 
+  }, [searchQuery, activeCategory, sortOption]);
+
   return (
     <div className="catalog-container">
       <h1>Product Catalog</h1>
@@ -114,9 +126,36 @@ export default function ProductCatalogPage() {
         {!loading && !error && filtered.length === 0 && (
           <p>No products match your search.</p>
         )}
-        {filtered.map((p) => (
+        {paginatedProducts.map((p) => (
           <ProductCard key={p.id} product={p} onFavoriteToggle={toggleFavorite} />
         ))}
+      </div>
+
+      {/* Pagination */}
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+          <button
+            key={num}
+            onClick={() => setCurrentPage(num)}
+            className={currentPage === num ? 'active-page' : ''}
+          >
+            {num}
+          </button>
+        ))}
+
+        <button
+          onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
