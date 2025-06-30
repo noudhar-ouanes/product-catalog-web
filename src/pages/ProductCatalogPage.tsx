@@ -11,23 +11,33 @@ export default function ProductCatalogPage() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [categories, setCategories] = useState<string[]>(['All']);
   const [sortOption, setSortOption] = useState('Default');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch('https://fakestoreapi.com/products');
-      const data = await res.json();
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('https://fakestoreapi.com/products');
+        const data: Product[] = await res.json();
 
-      const saved = localStorage.getItem('favoriteProductIds');
-      const favoriteIds = saved ? JSON.parse(saved) : [];
+        const saved = localStorage.getItem('favoriteProductIds');
+        const favoriteIds: number[] = saved ? JSON.parse(saved) : [];
 
-      const updated = data.map((p: Product) => ({
-        ...p,
-        favorite: favoriteIds.includes(p.id),
-      }));
+        const updated = data.map((p) => ({
+          ...p,
+          favorite: favoriteIds.includes(p.id),
+        }));
 
-      setProducts(updated);
-      const unique: string[] = Array.from(new Set(data.map((p: Product) => p.category)));
-      setCategories(['All', ...unique]);
+        setProducts(updated);
+        const uniqueCategories = Array.from(new Set(data.map((p) => p.category)));
+        setCategories(['All', ...uniqueCategories]);
+      } catch (err) {
+        setError('Failed to load products. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchProducts();
@@ -45,12 +55,20 @@ export default function ProductCatalogPage() {
 
   const filtered = useMemo(() => {
     let result = [...products];
-    if (activeCategory !== 'All') result = result.filter((p) => p.category === activeCategory);
-    if (searchQuery) result = result.filter((p) =>
-      p.title.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    if (sortOption === 'Price: Low to High') result.sort((a, b) => a.price - b.price);
-    if (sortOption === 'Price: High to Low') result.sort((a, b) => b.price - a.price);
+    if (activeCategory !== 'All') {
+      result = result.filter((p) => p.category === activeCategory);
+    }
+    if (searchQuery) {
+      result = result.filter((p) =>
+        p.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+    if (sortOption === 'Price: Low to High') {
+      result.sort((a, b) => a.price - b.price);
+    }
+    if (sortOption === 'Price: High to Low') {
+      result.sort((a, b) => b.price - a.price);
+    }
     return result;
   }, [products, searchQuery, activeCategory, sortOption]);
 
@@ -89,7 +107,13 @@ export default function ProductCatalogPage() {
         ))}
       </div>
 
+      {loading && <p className="loading">Loading products...</p>}
+      {error && <p className="error">{error}</p>}
+
       <div className="product-list">
+        {!loading && !error && filtered.length === 0 && (
+          <p>No products match your search.</p>
+        )}
         {filtered.map((p) => (
           <ProductCard key={p.id} product={p} onFavoriteToggle={toggleFavorite} />
         ))}
